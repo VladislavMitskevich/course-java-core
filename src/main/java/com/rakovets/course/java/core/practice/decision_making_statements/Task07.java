@@ -1,5 +1,6 @@
 package com.rakovets.course.java.core.practice.decision_making_statements;
 
+
 /**
  * Разработать программу для desktop приложения.
  * <p>
@@ -14,6 +15,9 @@ package com.rakovets.course.java.core.practice.decision_making_statements;
  */
 
 class Task07 {
+    private static final int FOUR_HUNDREDS = 400;
+    private static final int ONE_HUNDREDS = 100;
+    private static final int FOUR = 4;
     /**
      * The entry point of the task
      *
@@ -36,8 +40,6 @@ class Task07 {
      * @return <code>false</code>/<code>true</code>
      */
     static boolean isLeapYear(int year) {
-        //TODO
-        // Код, решающий задачу пишем ниже, при этом используя параметры метода
-        return false;
+        return ((year % FOUR_HUNDREDS == 0) || (year % FOUR == 0 && year % ONE_HUNDREDS != 0));
     }
 }

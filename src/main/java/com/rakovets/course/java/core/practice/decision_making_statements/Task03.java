@@ -9,6 +9,11 @@ package com.rakovets.course.java.core.practice.decision_making_statements;
  * @author Dmitry Rakovets
  */
 class Task03 {
+    private static final double ZERO = 0.00;
+    private static final double HIGH_LIMIT_RED_PERCENT = 0.25;
+    private static final double HIGH_LIMIT_ORANGE_PERCENT = 0.50;
+    private static final double HIGH_LIMIT_YELLOW_PERCENT = 0.75;
+    private static final double HIGH_LIMIT_GREEN_PERCENT = 1.00;
     /**
      * The entry point of the task
      *
@@ -18,7 +23,7 @@ class Task03 {
         //FIXME
         // Ниже приведены значения присваиваемые переменным. Их можно изменять для проверки различных вариантов входных
         // аргументов. Типы данных изменять нельзя
-        int currentHealthPoint = 10;
+        int currentHealthPoint = 50;
         int maxHealthPoint = 100;
 
         String colorHealthPoint = getColorHealthPoint(currentHealthPoint, maxHealthPoint);
@@ -35,8 +40,21 @@ class Task03 {
      * @return null/'RED'/'ORANGE'/'YELLOW'/'GREEN'
      */
     static String getColorHealthPoint(int currentHealthPoint, int maxHealthPoint) {
-        //TODO
-        // Код, решающий задачу пишем ниже, при этом используя параметры метода
-        return null;
+        String colorHP;
+        double currentHealthPercent = 1.0f * currentHealthPoint / maxHealthPoint;
+        if (currentHealthPercent <= HIGH_LIMIT_GREEN_PERCENT && currentHealthPercent >= HIGH_LIMIT_YELLOW_PERCENT) {
+            colorHP = "GREEN";
+        } else if (currentHealthPercent < HIGH_LIMIT_YELLOW_PERCENT && currentHealthPercent >= HIGH_LIMIT_ORANGE_PERCENT) {
+            colorHP = "YELLOW";
+        } else if (currentHealthPercent < HIGH_LIMIT_ORANGE_PERCENT && currentHealthPercent >= HIGH_LIMIT_RED_PERCENT) {
+            colorHP = "ORANGE";
+        } else if (currentHealthPercent < HIGH_LIMIT_RED_PERCENT && currentHealthPercent != ZERO) {
+            colorHP = "RED";
+        } else if (currentHealthPercent == ZERO) {
+            colorHP = null;
+        } else {
+            colorHP = "PURPLE";
+        }
+        return colorHP;
     }
 }
