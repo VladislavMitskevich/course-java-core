@@ -12,6 +12,8 @@ package com.rakovets.course.java.core.practice.decision_making_statements;
  * Определить сколько урона нанесет оружие по данному типу моба (моб - персонаж в игре управляемый компьютером).
  */
 class Task08 {
+    private static final double BOOSTING_PARAMETR = 1.5;
+    private static final double LOWERING_PARAMETR = 2;
     /**
      * The entry point of the task
      *
@@ -38,8 +40,27 @@ class Task08 {
      * @return итоговый урон по данному типу моба
      */
     static int getTotalDamage(int damage, String typeMob, boolean hasHolyAttribute) {
-        //TODO
-        // Код, решающий задачу пишем ниже, при этом используя параметры метода
-        return 0;
+        double damageParametr = 1;
+        switch (typeMob) {
+            case "UNDEAD":
+            case "ZOMBIE":
+                damageParametr = BOOSTING_PARAMETR;
+                break;
+            case "SAINT":
+                damageParametr = damageParametr / LOWERING_PARAMETR;
+                break;
+            case "ANIMAL":
+            case "HUMANOID":
+            case "PLANT":
+            case "GHOST":
+                break;
+            default:
+                damageParametr = 0;
+        }
+        int totalDamage = 0;
+        if (hasHolyAttribute) {
+            totalDamage = (int) (damage * damageParametr);
+        }
+        return totalDamage;
     }
 }
