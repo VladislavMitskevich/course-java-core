@@ -40,7 +40,7 @@ class Task06 {
         double percentageMultiplier = dailyProgressAsPercentage / 100.0;
         double totalDistance = currentDistance;
         if (startDistance > finishDistance || startDistance == 0) {
-            totalDistance = 0.0;
+            totalDistance = startDistance;
         } else {
             do {
                 currentDistance = currentDistance * (1.0 + percentageMultiplier);
