@@ -21,7 +21,7 @@ class Task04 {
         int averageDamagePerHour = 200;
 
         double raidTime = calculateRaidTime(healthPoints, regenerationPercentFromCurrentHealth, averageDamagePerHour);
-        System.out.printf("Result: %f", raidTime);
+        System.out.printf("Result: %.2f", raidTime);
     }
 
     /**
@@ -33,8 +33,20 @@ class Task04 {
      * @return время для убийства RaidBoss (когда party не справляется за 24 часа, то вывести -1)
      */
     static int calculateRaidTime(int healthPoints, double regenerationPercentPerHour, int averageDamagePerHour) {
-        //TODO
-        // Код, решающий задачу пишем ниже, при этом используя параметры метода
-        return 0;
+        int hourInDay = 24;
+        int currentHp = healthPoints;
+        int time = 0;
+        int finalTime;
+            do {
+                currentHp += currentHp * regenerationPercentPerHour / 100;
+                currentHp = currentHp - averageDamagePerHour;
+                time++;
+            } while (currentHp > 0 && time < hourInDay);
+            if (currentHp > 0) {
+                finalTime = -1;
+            } else {
+                finalTime = time;
+            }
+            return finalTime;
     }
 }
