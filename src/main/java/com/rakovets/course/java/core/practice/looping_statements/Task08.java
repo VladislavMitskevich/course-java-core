@@ -1,5 +1,7 @@
 package com.rakovets.course.java.core.practice.looping_statements;
 
+import com.rakovets.course.java.core.util.NumberUtil;
+
 /**
  * Разработать программу для сети оптовых гипермаркетов.
  * Необходимо сформировать список цен для некоторого продукта.
@@ -24,11 +26,11 @@ class Task08 {
         //FIXME
         // Ниже приведены значения присваиваемые переменным. Их можно изменять для проверки различных вариантов входных
         // аргументов. Типы данных изменять нельзя
-        int startNumberItems = 4;
-        double startPriceAllItems = 3.0;
-        int differentialNumberItems = 5;
-        double differentialSell = 4.0;
-        int sizeTotalPrice = 6;
+        int startNumberItems = 5;
+        double startPriceAllItems = 1.7;
+        int differentialNumberItems = 7;
+        double differentialSell = 1.0;
+        int sizeTotalPrice = 3;
 
         String totalPriceList = generateTotalPriceList(startNumberItems, startPriceAllItems, differentialNumberItems, differentialSell, sizeTotalPrice);
         System.out.printf("Result:\n%s", totalPriceList);
@@ -49,8 +51,20 @@ class Task08 {
      * <code>NumberUtil.roundValueToTwoDigitsForMantissa(value)</code>
      */
     static String generateTotalPriceList(int startNumberItems, double startPriceAllItems, int differentialNumberItems, double differentialSell, int sizeTotalPrice) {
-        //TODO
-        // Код, решающий задачу пишем ниже, при этом используя параметры метода
-        return null;
+        int currentAmount;
+        double pricePerItem = startPriceAllItems / startNumberItems;
+        double sell;
+        String string = "";
+        for (int i = 0; i < sizeTotalPrice; i++) {
+            currentAmount = startNumberItems + differentialNumberItems * i;
+            sell = differentialSell * i;
+            double totalPrise = NumberUtil.roundValueToTwoDigitsForMantissa(currentAmount * pricePerItem * (1 - sell / 100));
+            if (i < sizeTotalPrice - 1) {
+                string = string + currentAmount + " - " + totalPrise + " with sell " + sell + "%\n";
+            } else {
+                string = string + currentAmount + " - " + totalPrise + " with sell " + sell + "%";
+            }
+        }
+        return string;
     }
 }
