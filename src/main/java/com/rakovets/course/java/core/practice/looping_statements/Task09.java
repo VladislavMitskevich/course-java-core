@@ -11,6 +11,8 @@ package com.rakovets.course.java.core.practice.looping_statements;
  * @author Dmitry Rakovets
  */
 class Task09 {
+    private static final int THOUSEND = 1000;
+    private static final long FIRST_PARAMETR = 1000L;
     /**
      * The entry point of the task
      *
@@ -34,8 +36,18 @@ class Task09 {
      * @return сумма в бухгалтерском формате
      */
     static String convertToAccountingFormat(long amount) {
-        //TODO
-        // Код, решающий задачу пишем ниже, при этом используя параметры метода
-        return null;
+        StringBuilder builder = new StringBuilder();
+        builder.append(amount);
+        long amountAbs = Math.abs(amount);
+        int cicles = 0;
+        int index;
+        for (long i = FIRST_PARAMETR; i <= amountAbs; i = i * THOUSEND) {
+            cicles++;
+        }
+        for (int i = 0; i < cicles; i++) {
+            index = builder.length();
+            builder.insert(index - 3 * (i + 1) - i, " ");
+        }
+        return builder.toString();
     }
 }
