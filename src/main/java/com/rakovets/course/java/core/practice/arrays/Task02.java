@@ -10,11 +10,7 @@ class Task02 {
         //FIXME
         // Ниже приведены значения присваиваемые переменным. Их можно изменять для проверки различных вариантов входных
         // аргументов. Типы данных изменять нельзя
-        int[][] marks = {
-                {1, 2, 3},
-                {4, 5, 6},
-                {7, 8, 9}
-        };
+        int[][] marks = {{5, 4, 5}, {4, 9, 4}, {9, 4, 5}};
 
         double averageMark = getAverageMark(marks);
         System.out.printf("Average mark: %f\n", averageMark);
@@ -31,9 +27,17 @@ class Task02 {
      * @return средняя арифметическая отметка
      */
     static double getAverageMark(int[][] marks) {
-        //TODO
-        // Код, решающий задачу пишем ниже, при этом используя параметры метода
-        return 0.0;
+        int sum = 0;
+        int count=0;
+        for (int line = 0; line < marks.length; line++) {
+            for (int column = 0; column < marks[line].length; column++) {
+                sum += marks[line][column];
+                count++;
+                }
+            }
+        double c = (double) sum/count;
+        String output = String.format("%.2f", c);
+        return output;
     }
 
     /**
@@ -43,9 +47,15 @@ class Task02 {
      * @return минимальная отметка
      */
     static int getMinMark(int[][] marks) {
-        //TODO
-        // Код, решающий задачу пишем ниже, при этом используя параметры метода
-        return 0;
+        int minMarks = marks[0][0];
+        for (int line = 0; line < marks.length; line++) {
+            for (int column = 0; column < marks[line].length; column++) {
+                if (minMarks > marks[line][column]) {
+                    minMarks =  marks[line][column];
+                }
+            }
+        }
+        return minMarks;
     }
 
     /**
@@ -55,8 +65,14 @@ class Task02 {
      * @return максимальная отметка
      */
     static int getMaxMark(int[][] marks) {
-        //TODO
-        // Код, решающий задачу пишем ниже, при этом используя параметры метода
-        return 0;
+        int maxMarks = 0;
+        for (int line = 0; line < marks.length; line++) {
+            for (int column = 0; column < marks[line].length; column++) {
+                if (maxMarks < marks[line][column]) {
+                    maxMarks =  marks[line][column];
+                }
+            }
+        }
+        return maxMarks;
     }
 }
