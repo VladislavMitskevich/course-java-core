@@ -1,5 +1,8 @@
 package com.rakovets.course.java.core.practice.arrays;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * Разработать программу для электронного дневника, которая работает с отметками по всем предметам.
  *
@@ -33,11 +36,9 @@ class Task02 {
             for (int column = 0; column < marks[line].length; column++) {
                 sum += marks[line][column];
                 count++;
-                }
             }
-        double c = (double) sum/count;
-        String output = String.format("%.2f", c);
-        return output;
+        }
+        return BigDecimal.valueOf((double) sum / count).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     /**
