@@ -13,9 +13,9 @@ class Task03 {
         // Ниже приведены значения присваиваемые переменным. Их можно изменять для проверки различных вариантов входных
         // аргументов. Типы данных изменять нельзя
         int[][] marks = {
-                {1, 2, 3},
-                {4, 5, 6},
-                {7, 8, 9}
+                {6, 4, 8},
+                {9, 6, 2},
+                {1, 4, 5}
         };
 
         double[] averageMark = getAverageMarks(marks);
@@ -45,9 +45,19 @@ class Task03 {
      * @return минимальная отметка
      */
     static int[] getMinMarks(int[][] marks) {
-        //TODO
-        // Код, решающий задачу пишем ниже, при этом используя параметры метода
-        return null;
+        int[] minMarks = new int[marks.length];
+        int minMark = marks[0][0];
+        for (int line = 0; line < marks.length; line++) {
+            for (int column = 0; column < marks[line].length; column++) {
+
+                if (minMark > marks[line][column]) {
+                    minMark =  marks[line][column];
+                }
+                minMarks[line] = minMark;
+                minMark = marks[0][column];
+            }
+        }
+        return minMarks;
     }
 
     /**
@@ -57,8 +67,17 @@ class Task03 {
      * @return максимальная отметка
      */
     static int[] getMaxMarks(int[][] marks) {
-        //TODO
-        // Код, решающий задачу пишем ниже, при этом используя параметры метода
-        return null;
+        int[] maxMarks = new int[marks.length];
+        int maxMark = 0;
+        for (int line = 0; line < marks.length; line++) {
+            for (int column = 0; column < marks[line].length; column++) {
+                if (maxMark < marks[line][column]) {
+                    maxMark =  marks[line][column];
+                }
+                maxMarks[line] = maxMark;
+                maxMark = 0;
+            }
+        }
+        return maxMarks;
     }
 }
