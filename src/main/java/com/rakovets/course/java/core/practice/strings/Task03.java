@@ -20,7 +20,8 @@ class Task03 extends StandardInputTask {
         //FIXME
         // Ниже приведены значения присваиваемые переменным. Их можно изменять для проверки различных вариантов входных
         // аргументов. Типы данных изменять нельзя
-        String informationAboutStuff = INPUT_SCANNER.nextLine();
+        //String informationAboutStuff = INPUT_SCANNER.nextLine();
+        String informationAboutStuff = "Ivan Ivanov 11200$, Pet 1500$ Petrov ";
 
         String[] names = parseToArrayName(informationAboutStuff);
         System.out.printf("Names: %s\n", Arrays.toString(names));
@@ -37,9 +38,16 @@ class Task03 extends StandardInputTask {
      * @return массив имен персонала, где каждый элемент является именем одного сотрудника
      */
     static String[] parseToArrayName(String informationAboutStuff) {
-        //TODO
-        // Код, решающий задачу пишем ниже, при этом используя параметры метода
-        return null;
+        String[] arrayText = getTextWithoutMoney(informationAboutStuff);
+        System.out.println(Arrays.toString(arrayText));
+        System.out.println(arrayText.length);
+        String[] arrayName = new String[arrayText.length / 2];
+        int i = 0;
+        for (int count = 0; count < arrayText.length; count += 2) {
+            arrayName[i] = arrayText[count];
+            i += 1;
+        }
+        return arrayName;
     }
 
     /**
@@ -61,8 +69,20 @@ class Task03 extends StandardInputTask {
      * @return массив зарплат персонала, где каждый элемент является зарплатой одного сотрудника
      */
     static int[] parseToArraySalary(String informationAboutStuff) {
-        //TODO
-        // Код, решающий задачу пишем ниже, при этом используя параметры метода
-        return null;
+        String stringMoney = informationAboutStuff.replaceAll("[^-?\\d+$?]", "");
+        String[] arrayStringMoney = stringMoney.split("\\$");
+        int[] arrayMoney = new int[arrayStringMoney.length];
+        for (int i = 0; i < arrayStringMoney.length; i++) {
+            arrayMoney[i] = Integer.parseInt(arrayStringMoney[i]);
+        }
+        return arrayMoney;
+    }
+
+    static String[] getTextWithoutMoney(String informationAboutStuff) {
+        String stringWithoutMoney = informationAboutStuff
+                .replaceAll("[-?\\d+$,.?]", "")
+                .replaceAll("  ", " ");
+        String[] arrayStringWithoutMoney = stringWithoutMoney.split(" ");
+        return arrayStringWithoutMoney;
     }
 }
