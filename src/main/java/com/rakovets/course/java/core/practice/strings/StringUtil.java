@@ -4,22 +4,11 @@ import java.util.Arrays;
 
 public class StringUtil {
     public static void main(String[] args) {
-        String str3 = "he";
-        String str4 = "ll";
-        String str5 = stringGluing(str3, str4);
-        System.out.println(str5);
-        int[] arrayMatches = indexesOfChar("hello world", 'a');
-        System.out.println(Arrays.toString(arrayMatches));
-        boolean compare = compareTwoStrings("abc", null);
-        System.out.println(compare);
-        System.out.println(trimAndLowerCase("HeLLo "));
-        System.out.println(notificationOfASubstring("paragraf", 'a', 'g'));
-        System.out.println(smileEmoji("five sdfsdfssgsg"));
-        System.out.println(startAndEndText("World hello", "hello"));
-        System.out.println(numberOfVowelLetters("Helqel, world"));
-        System.out.println(numberOfPunctuationMarks("giveme, a Hell!!!"));
-        System.out.println(isPolindrome("Do geese see God?"));
+        System.out.println(countWordsInString("John Smith, Gohn lenon; gerber Wells"));
+        String[] array = parseStringOfLength("ytchjvjbjhvjhvjvkkvjjchgcl", 5);
+        System.out.println(Arrays.toString(array));
     }
+
 
     static String stringGluing(String str1, String str2) {
         String str11 = str1 != null ? (str1) : ("");
@@ -95,8 +84,37 @@ public class StringUtil {
     }
 
     static private boolean isPolindrome(String string) {
-        String newString = string.toLowerCase().replaceAll("[.,?! ]","");
+        String newString = string.toLowerCase().replaceAll("[.,?! ]", "");
         String revers = new StringBuilder(newString).reverse().toString();
         return revers.equals(newString);
+    }
+
+    public static String stringOfNumbers(String string) {
+        String stringLongNumbers = string.replaceAll("[^0-9]", " ");
+        return stringLongNumbers.trim().replaceAll("\\s{2,}", " ");
+    }
+
+    public static String initialsFromString(String string) {
+        String stringWithoutPunctuation = string.replaceAll("[.,?!;]", " ");
+        String[] stringArray = stringWithoutPunctuation.trim().replaceAll("\\s{2,}", " ").split(" ");
+        String initials = "";
+        for (int count = 0; count < stringArray.length; count++) {
+            initials += stringArray[count].substring(0, 1).toUpperCase();
+            if ((count + 1) % 2 == 0) {
+               initials = initials + ".; ";
+            } else {
+                initials = initials + ".";
+            }
+        }
+        return initials.trim();
+    }
+
+    public static int countWordsInString (String string) {
+        String[] wordsArray = string.trim().split("\\s+");
+        return wordsArray.length;
+    }
+
+    public static String[] parseStringOfLength (String string, int demention){
+        return string.split("(?<=\\G.{" + demention + "})");
     }
 }
