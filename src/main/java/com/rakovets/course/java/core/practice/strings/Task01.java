@@ -58,6 +58,6 @@ class Task01 {
         for (int i = arrayWords.length - 1; i >= 0; i--) {
             outText += arrayWords[i] + " ";
         }
-        return outText;
+        return outText.trim();
     }
 }
