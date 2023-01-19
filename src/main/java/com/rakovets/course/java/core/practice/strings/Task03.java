@@ -21,7 +21,18 @@ class Task03 extends StandardInputTask {
         // Ниже приведены значения присваиваемые переменным. Их можно изменять для проверки различных вариантов входных
         // аргументов. Типы данных изменять нельзя
         //String informationAboutStuff = INPUT_SCANNER.nextLine();
-        String informationAboutStuff = "Ivan Ivanov 11200$, Pet 1500$ Petrov ";
+        String informationAboutStuff = "Nappie Lopez-gomez    5000;" +
+        "Crawford   Kelsey 2000;" +
+                "Gregor    Samenfeld 4000;" +
+                "Bendick Berti 3500     ;" +
+                "Westleigh Aghayan   689," +
+                "Maurits   Loreti 1200;" +
+                "Thorvald Masson 2500;" +
+                "Elijah   Simo 3450;" +
+                "Shaun Nadal-ginard 1234;" +
+                "Malvin Cambern 7654;" +
+                "Northrup Berti 2345;" +
+                "Laurence Aghayan 4632;";
 
         String[] names = parseToArrayName(informationAboutStuff);
         System.out.printf("Names: %s\n", Arrays.toString(names));
@@ -38,16 +49,14 @@ class Task03 extends StandardInputTask {
      * @return массив имен персонала, где каждый элемент является именем одного сотрудника
      */
     static String[] parseToArrayName(String informationAboutStuff) {
-        String[] arrayText = getTextWithoutMoney(informationAboutStuff);
-        System.out.println(Arrays.toString(arrayText));
-        System.out.println(arrayText.length);
-        String[] arrayName = new String[arrayText.length / 2];
-        int i = 0;
-        for (int count = 0; count < arrayText.length; count += 2) {
-            arrayName[i] = arrayText[count];
-            i += 1;
+        String[] informationToArray = renameSeparator(informationAboutStuff).split(";");
+        String[] result = new String[informationToArray.length];
+
+        for (int info = 0; info < informationToArray.length; info++) {
+            result[info] = informationToArray[info].split("\\s+")[0];
         }
-        return arrayName;
+
+        return result;
     }
 
     /**
@@ -57,9 +66,14 @@ class Task03 extends StandardInputTask {
      * @return массив фамилий персонала, где каждый элемент является фамилией одного сотрудника
      */
     static String[] parseToArraySurname(String informationAboutStuff) {
-        //TODO
-        // Код, решающий задачу пишем ниже, при этом используя параметры метода
-        return null;
+        String[] informationToArray = renameSeparator(informationAboutStuff).split(";");
+        String[] result = new String[informationToArray.length];
+
+        for (int info = 0; info < informationToArray.length; info++) {
+            result[info] = informationToArray[info].split("\\s+")[1];
+        }
+
+        return result;
     }
 
     /**
@@ -69,20 +83,18 @@ class Task03 extends StandardInputTask {
      * @return массив зарплат персонала, где каждый элемент является зарплатой одного сотрудника
      */
     static int[] parseToArraySalary(String informationAboutStuff) {
-        String stringMoney = informationAboutStuff.replaceAll("[^-?\\d+$?]", "");
-        String[] arrayStringMoney = stringMoney.split("\\$");
-        int[] arrayMoney = new int[arrayStringMoney.length];
-        for (int i = 0; i < arrayStringMoney.length; i++) {
-            arrayMoney[i] = Integer.parseInt(arrayStringMoney[i]);
+        String[] informationToArray = renameSeparator(informationAboutStuff).split(";");
+        int[] result = new int[informationToArray.length];
+
+        for (int info = 0; info < informationToArray.length; info++) {
+            result[info] = Integer.parseInt(informationToArray[info].replace(";", "")
+                    .split("\\s+")[2]);
         }
-        return arrayMoney;
+
+        return result;
     }
 
-    static String[] getTextWithoutMoney(String informationAboutStuff) {
-        String stringWithoutMoney = informationAboutStuff
-                .replaceAll("[-?\\d+$,.?]", "")
-                .replaceAll("  ", " ");
-        String[] arrayStringWithoutMoney = stringWithoutMoney.split(" ");
-        return arrayStringWithoutMoney;
+    static String renameSeparator (String informationAboutStuff) {
+        return informationAboutStuff.replace(',',';');
     }
 }
