@@ -20,7 +20,7 @@ class Task02 {
         //FIXME
         // Ниже приведены значения присваиваемые переменным. Их можно изменять для проверки различных вариантов входных
         // аргументов. Типы данных изменять нельзя
-        String bankReport = "Remaining 10.1$  12.55$ essentially 13.888$ unchanged.";
+        String bankReport = "typetypesetting 100$ -12$remaining the 1960s with -12$ the release -36$ of Letraset Lorem";
 
         double[] moneyFromReport = getArrayMoneyFromReport(bankReport);
         System.out.printf("Money from the report: %s\n", Arrays.toString(moneyFromReport));
@@ -35,11 +35,21 @@ class Task02 {
      * @return список сумм
      */
     static double[] getArrayMoneyFromReport(String report) {
-        String stringMoney = report.replaceAll("[^-?\\d+(\\.\\d+$)?]", "");
-        String[] arrayStringMoney = stringMoney.split("\\$");
-        double[] arrayMoney = new double[arrayStringMoney.length - 1];
-        for (int i = 0; i < arrayStringMoney.length - 1; i++) {
-            arrayMoney[i] = Double.parseDouble(arrayStringMoney[i]);
+        String stringMoney = report.replaceAll("[^-?\\d+(\\.\\d+$)?]", " ");
+        double[] arrayMoney;
+        int countIncluds = 0;
+        if (report.indexOf('$') != -1) {
+            int countDollar = report.length() - report.replace("$", "").length();
+            arrayMoney = new double[countDollar];
+            String[] stringArray = stringMoney.trim().split("\\s");
+            for (int count = 0; count < stringArray.length; count++) {
+                if (stringArray[count].indexOf('$') != -1) {
+                    arrayMoney[countIncluds] = Double.parseDouble(stringArray[count].replace("$", ""));
+                    countIncluds++;
+                }
+            }
+        } else {
+            arrayMoney = new double[]{};
         }
         return arrayMoney;
     }
