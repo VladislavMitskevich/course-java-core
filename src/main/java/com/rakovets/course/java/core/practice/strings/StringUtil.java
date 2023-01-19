@@ -3,51 +3,55 @@ package com.rakovets.course.java.core.practice.strings;
 import java.util.Arrays;
 
 public class StringUtil {
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         System.out.println(countWordsInString("John Smith, Gohn lenon; gerber Wells"));
         String[] array = parseStringOfLength("ytchjvjbjhvjhvjvkkvjjchgcl", 5);
         System.out.println(Arrays.toString(array));
-    }
+    }*/
 
 
-    static String stringGluing(String str1, String str2) {
+    public String stringGluing(String str1, String str2) {
         String str11 = str1 != null ? (str1) : ("");
         String str22 = str2 != null ? (str2) : ("");
         return str11.concat(str22);
     }
 
-    static private int[] indexesOfChar(String string, char char1) {
-        int countChar = string.length() - string.replaceAll(String.valueOf(char1), "").length();
+    public  int[] indexesOfChar(String string, char char1) {
         int[] arrayMatches;
-        if (countChar != 0) {
-            arrayMatches = new int[countChar];
-            int i = -1;
-            int j = 0;
-            while (true) {
-                i = string.indexOf(char1, i + 1);
-                if (i < 0) {
-                    break;
-                }
-                arrayMatches[j] = i;
-                j++;
-            }
+        if (string == null || char1 == '\u0000') {
+            arrayMatches = new int[]{};
         } else {
-            arrayMatches = new int[]{-1};
+            int countChar = string.length() - string.replaceAll(String.valueOf(char1), "").length();
+            if (countChar != 0) {
+                arrayMatches = new int[countChar];
+                int i = -1;
+                int j = 0;
+                while (true) {
+                    i = string.indexOf(char1, i + 1);
+                    if (i < 0) {
+                        break;
+                    }
+                    arrayMatches[j] = i;
+                    j++;
+                }
+            } else {
+                arrayMatches = new int[]{-1};
+            }
         }
         return arrayMatches;
     }
 
-    static private boolean compareTwoStrings(String str1, String str2) {
+    public boolean compareTwoStrings(String str1, String str2) {
         String str11 = str1 != null ? (str1) : ("");
         String str22 = str2 != null ? (str2) : ("");
         return str11.equals(str22);
     }
 
-    static private String trimAndLowerCase(String string) {
+    public String trimAndLowerCase(String string) {
         return string.trim().toLowerCase();
     }
 
-    static private String notificationOfASubstring(String string, char char1, char char2) {
+    public String notificationOfASubstring(String string, char char1, char char2) {
         String ouutputString;
         int indexOfChar1 = string.indexOf(char1);
         int indexOfChar2 = string.indexOf(char2);
@@ -59,7 +63,7 @@ public class StringUtil {
         return ouutputString;
     }
 
-    static private String smileEmoji(String string) {
+    public String smileEmoji(String string) {
         String outText;
         if (string.indexOf(":(") == -1) {
             outText = string;
@@ -69,32 +73,32 @@ public class StringUtil {
         return outText;
     }
 
-    static private boolean startAndEndText(String text, String world) {
+    public boolean startAndEndText(String text, String world) {
         return text.toLowerCase().startsWith(world.toLowerCase()) && text.toLowerCase().endsWith(world.toLowerCase());
     }
 
-    static private int numberOfVowelLetters(String string) {
+    public int numberOfVowelLetters(String string) {
         return string.toLowerCase().length() -
                 string.toLowerCase().replaceAll("[aeyuio]", "").length();
     }
 
-    static private int numberOfPunctuationMarks(String string) {
+    public int numberOfPunctuationMarks(String string) {
         return string.toLowerCase().length() -
                 string.toLowerCase().replaceAll("[.,?!]", "").length();
     }
 
-    static private boolean isPolindrome(String string) {
+    public boolean isPolindrome(String string) {
         String newString = string.toLowerCase().replaceAll("[.,?! ]", "");
         String revers = new StringBuilder(newString).reverse().toString();
         return revers.equals(newString);
     }
 
-    public static String stringOfNumbers(String string) {
+    public String stringOfNumbers(String string) {
         String stringLongNumbers = string.replaceAll("[^0-9]", " ");
         return stringLongNumbers.trim().replaceAll("\\s{2,}", " ");
     }
 
-    public static String initialsFromString(String string) {
+    public String initialsFromString(String string) {
         String stringWithoutPunctuation = string.replaceAll("[.,?!;]", " ");
         String[] stringArray = stringWithoutPunctuation.trim().replaceAll("\\s{2,}", " ").split(" ");
         String initials = "";
@@ -109,12 +113,12 @@ public class StringUtil {
         return initials.trim();
     }
 
-    public static int countWordsInString (String string) {
+    public int countWordsInString (String string) {
         String[] wordsArray = string.trim().split("\\s+");
         return wordsArray.length;
     }
 
-    public static String[] parseStringOfLength (String string, int demention){
+    public String[] parseStringOfLength (String string, int demention){
         return string.split("(?<=\\G.{" + demention + "})");
     }
 }
