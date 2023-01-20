@@ -1,6 +1,5 @@
 package com.rakovets.course.java.core.practice.strings;
 
-import java.util.Arrays;
 
 public class StringUtil {
 /*    public static void main(String[] args) {
@@ -16,7 +15,7 @@ public class StringUtil {
         return str11.concat(str22);
     }
 
-    public  int[] indexesOfChar(String string, char char1) {
+    public int[] indexesOfChar(String string, char char1) {
         int[] arrayMatches;
         if (string == null || char1 == '\u0000') {
             arrayMatches = new int[]{};
@@ -48,25 +47,29 @@ public class StringUtil {
     }
 
     public String trimAndLowerCase(String string) {
-        return string.trim().toLowerCase();
+        return string != null ? (string.trim().toLowerCase()) : ("");
     }
 
     public String notificationOfASubstring(String string, char char1, char char2) {
         String ouutputString;
-        int indexOfChar1 = string.indexOf(char1);
-        int indexOfChar2 = string.indexOf(char2);
-        if (indexOfChar1 == -1 || indexOfChar2 == -1 && indexOfChar1 > indexOfChar2) {
-            ouutputString = "your char is wrong";
+        if (string != null) {
+            int indexOfChar1 = string.indexOf(char1);
+            int indexOfChar2 = string.indexOf(char2);
+            if (indexOfChar1 == -1 || indexOfChar1 > indexOfChar2) {
+                ouutputString = "your char is wrong";
+            } else {
+                ouutputString = string.substring(indexOfChar1, indexOfChar2);
+            }
         } else {
-            ouutputString = string.substring(indexOfChar1, indexOfChar2);
+            ouutputString = "your string equls null";
         }
         return ouutputString;
     }
 
     public String smileEmoji(String string) {
         String outText;
-        if (string.indexOf(":(") == -1) {
-            outText = string;
+        if (string == null) {
+            outText = "your string equls null";
         } else {
             outText = string.replace(":(", ":)");
         }
@@ -74,51 +77,91 @@ public class StringUtil {
     }
 
     public boolean startAndEndText(String text, String world) {
-        return text.toLowerCase().startsWith(world.toLowerCase()) && text.toLowerCase().endsWith(world.toLowerCase());
+        boolean outputText;
+        if (text == null || world == null) {
+            outputText = false;
+        } else {
+            outputText = text.toLowerCase().startsWith(world.toLowerCase())
+                    && text.toLowerCase().endsWith(world.toLowerCase());
+        }
+        return outputText;
     }
 
     public int numberOfVowelLetters(String string) {
-        return string.toLowerCase().length() -
+        int numberIncluds = (string == null) ? 0 : string.toLowerCase().length() -
                 string.toLowerCase().replaceAll("[aeyuio]", "").length();
+        return numberIncluds;
     }
 
     public int numberOfPunctuationMarks(String string) {
-        return string.toLowerCase().length() -
-                string.toLowerCase().replaceAll("[.,?!]", "").length();
+        int numberIncluds = (string == null) ? 0 : string.toLowerCase().length() -
+                string.toLowerCase().replaceAll("[.,?!:;]", "").length();
+        return numberIncluds;
     }
 
     public boolean isPolindrome(String string) {
-        String newString = string.toLowerCase().replaceAll("[.,?! ]", "");
-        String revers = new StringBuilder(newString).reverse().toString();
-        return revers.equals(newString);
+        boolean isTrue;
+        if (string == null) {
+            isTrue = false;
+        } else {
+            String newString = string.toLowerCase().replaceAll("[.,?! ]", "");
+            String revers = new StringBuilder(newString).reverse().toString();
+            isTrue = revers.equals(newString);
+        }
+        return isTrue;
     }
 
     public String stringOfNumbers(String string) {
-        String stringLongNumbers = string.replaceAll("[^0-9]", " ");
-        return stringLongNumbers.trim().replaceAll("\\s{2,}", " ");
+        String stringOutput;
+        if (string == null) {
+            stringOutput = null;
+        } else {
+            stringOutput = string.replaceAll("[^0-9]", " ")
+                    .trim().replaceAll("\\s{2,}", " ");
+
+        }
+        return stringOutput;
     }
 
     public String initialsFromString(String string) {
-        String stringWithoutPunctuation = string.replaceAll("[.,?!;]", " ");
-        String[] stringArray = stringWithoutPunctuation.trim().replaceAll("\\s{2,}", " ").split(" ");
-        String initials = "";
-        for (int count = 0; count < stringArray.length; count++) {
-            initials += stringArray[count].substring(0, 1).toUpperCase();
-            if ((count + 1) % 2 == 0) {
-               initials = initials + ".; ";
-            } else {
-                initials = initials + ".";
+        String stringOutput = null;
+        if (string == null) {
+            stringOutput = null;
+        } else {
+            String stringWithoutPunctuation = string.replaceAll("[.,?!;]", " ");
+            String[] stringArray = stringWithoutPunctuation.trim().replaceAll("\\s{2,}", " ")
+                    .split(" ");
+            String initials = "";
+            for (int count = 0; count < stringArray.length; count++) {
+                initials += stringArray[count].substring(0, 1).toUpperCase();
+                if ((count + 1) % 2 == 0) {
+                    initials = initials + ".; ";
+                } else {
+                    initials = initials + ".";
+                }
+                stringOutput = initials.trim();
             }
         }
-        return initials.trim();
+        return stringOutput;
     }
 
-    public int countWordsInString (String string) {
-        String[] wordsArray = string.trim().split("\\s+");
-        return wordsArray.length;
+    public int countWordsInString(String string) {
+        int numberOutput;
+        if (string == null) {
+            numberOutput = 0;
+        } else {
+            numberOutput = string.trim().split("\\s+").length;
+        }
+        return numberOutput;
     }
 
-    public String[] parseStringOfLength (String string, int demention){
-        return string.split("(?<=\\G.{" + demention + "})");
+    public String[] parseStringOfLength(String string, int demention) {
+        String[] arrayStrings;
+        if (string == null || demention == 0) {
+            arrayStrings = new String[]{};
+        }else {
+            arrayStrings  = string.split("(?<=\\G.{" + demention + "})");
+        }
+        return arrayStrings;
     }
 }
