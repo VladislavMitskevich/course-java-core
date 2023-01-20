@@ -1,5 +1,7 @@
 package com.rakovets.course.java.core.practice.strings;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 
 /**
@@ -18,7 +20,7 @@ class Task02 {
         //FIXME
         // Ниже приведены значения присваиваемые переменным. Их можно изменять для проверки различных вариантов входных
         // аргументов. Типы данных изменять нельзя
-        String bankReport = "Remaining 10$  12$ essentially 13$ unchanged.";
+        String bankReport = "typetypesetting 100$ -12$remaining the 1960s with -12$ the release -36$ of Letraset Lorem";
 
         double[] moneyFromReport = getArrayMoneyFromReport(bankReport);
         System.out.printf("Money from the report: %s\n", Arrays.toString(moneyFromReport));
@@ -33,9 +35,23 @@ class Task02 {
      * @return список сумм
      */
     static double[] getArrayMoneyFromReport(String report) {
-        //TODO
-        // Код, решающий задачу пишем ниже, при этом используя параметры метода
-        return null;
+        String stringMoney = report.replaceAll("[^-?\\d+(\\.\\d+$)?]", " ");
+        double[] arrayMoney;
+        int countIncluds = 0;
+        if (report.indexOf('$') != -1) {
+            int countDollar = report.length() - report.replace("$", "").length();
+            arrayMoney = new double[countDollar];
+            String[] stringArray = stringMoney.trim().split("\\s");
+            for (int count = 0; count < stringArray.length; count++) {
+                if (stringArray[count].indexOf('$') != -1) {
+                    arrayMoney[countIncluds] = Double.parseDouble(stringArray[count].replace("$", ""));
+                    countIncluds++;
+                }
+            }
+        } else {
+            arrayMoney = new double[]{};
+        }
+        return arrayMoney;
     }
 
     /**
@@ -45,8 +61,11 @@ class Task02 {
      * @return общую сумму всех денег
      */
     static double getSumMoneyFromReport(String report) {
-        //TODO
-        // Код, решающий задачу пишем ниже, при этом используя параметры метода
-        return 0.0;
+        double[] moneyFromReport = getArrayMoneyFromReport(report);
+        double sum = 0;
+        for (int count = 0; count < moneyFromReport.length; count++) {
+            sum += moneyFromReport[count];
+        }
+        return BigDecimal.valueOf(sum).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 }
