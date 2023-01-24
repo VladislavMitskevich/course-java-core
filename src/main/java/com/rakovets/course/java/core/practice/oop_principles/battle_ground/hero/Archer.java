@@ -1,6 +1,7 @@
 package com.rakovets.course.java.core.practice.oop_principles.battle_ground.hero;
 
 import com.rakovets.course.java.core.practice.oop_principles.battle_ground.DamageType;
+import com.rakovets.course.java.core.practice.oop_principles.battle_ground.DiceRoll;
 import com.rakovets.course.java.core.practice.oop_principles.battle_ground.Fighter;
 
 public class Archer extends Hero {
@@ -12,30 +13,30 @@ public class Archer extends Hero {
     }
 
     @Override
-    public void attack(Fighter fighter) {
-        System.out.println(this.toString() + " attaks " + fighter.toString());
-        fighter.takeDamage(this);
+    public void attack(Fighter enemy) {
+        System.out.println(this.toString() + " attaks " + enemy.toString());
+        enemy.takeDamage(this);
     }
 
     @Override
-    public void takeDamage(Fighter fighter) {
-        int dodge = (int) Math.random() * 100;
+    public void takeDamage(Fighter enemy) {
+        int dodge = DiceRoll.roll100();
         if (dodge <= 50) {
-            super.takeDamage(fighter);
+            super.takeDamage(enemy);
         } else {
             System.out.println(this.getName() +" dodged");
         }
         if (isAlive()) {
-            attack(fighter);
+            attack(enemy);
         } else {
-            System.out.println(fighter + " killed archer" + this.getName());
+            System.out.println(enemy + " killed archer" + this.getName());
         }
     }
 
     @Override
     public int getDamageAmount() {
         //TODO random Damage
-        return 8;
+        return DiceRoll.roll8();
     }
 
     @Override

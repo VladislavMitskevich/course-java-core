@@ -1,6 +1,7 @@
 package com.rakovets.course.java.core.practice.oop_principles.battle_ground.enemy;
 
 import com.rakovets.course.java.core.practice.oop_principles.battle_ground.DamageType;
+import com.rakovets.course.java.core.practice.oop_principles.battle_ground.DiceRoll;
 import com.rakovets.course.java.core.practice.oop_principles.battle_ground.Fighter;
 import com.rakovets.course.java.core.practice.oop_principles.battle_ground.hero.Hero;
 
@@ -9,39 +10,39 @@ import java.util.Arrays;
 public class Zombie extends Enemy {
     private final static DamageType[] damageTypes = {DamageType.MELEE, DamageType.PHYSICAL};
     private final static int ZOMBIE_HEALTH = 180;
+
     public Zombie() {
         super(ZOMBIE_HEALTH, damageTypes);
     }
 
     @Override
     public int getDamageAmount() {
-        //TODO random 6
-        return 6;
+        return DiceRoll.roll6();
     }
 
     @Override
-    public void attack(Fighter fighter) {
-        System.out.println(this.toString() + " attaks " + fighter.toString());
-        fighter.takeDamage(this);
+    public void attack(Fighter hero) {
+        System.out.println(this.toString() + " attaks " + hero.toString());
+        hero.takeDamage(this);
     }
 
     @Override
-    public void takeDamage(Fighter fighter) {
-        super.takeDamage(fighter);
+    public void takeDamage(Fighter hero) {
+        super.takeDamage(hero);
         countHit();
-        if (Arrays.binarySearch(damageTypes, DamageType.LONG_RANGE) != -1 &&
+        if (hero.hasDamageType(DamageType.LONG_RANGE) == true &&
                 getCount() <= 2) {
-            fighter.attack(this);
+            hero.attack(this);
             return;
         }
         if (isAlive()) {
-            attack(fighter);
-        } else if ((int) (Math.random() * 100) >= 50) {
+            attack(hero);
+        } else if (DiceRoll.roll100() >= 50) {
             System.out.println("it's alive...again");
             setHealth(10);
-            attack(fighter);
+            attack(hero);
         } else {
-            System.out.println(this.toString() + " killed by " + fighter.toString());
+            System.out.println(this.toString() + " killed by " + hero.toString());
         }
     }
 

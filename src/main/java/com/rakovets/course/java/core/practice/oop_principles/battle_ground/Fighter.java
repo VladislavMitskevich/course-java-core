@@ -3,7 +3,12 @@ package com.rakovets.course.java.core.practice.oop_principles.battle_ground;
 public abstract class Fighter implements Attacable, Mortal {
     protected DamageType[] damageTypes;
     private int count;
+
     private int health;
+
+    public int getHealth() {
+        return health;
+    }
 
     public Fighter(DamageType[] damageTypes, int health) {
         this.damageTypes = damageTypes;
@@ -48,4 +53,15 @@ public abstract class Fighter implements Attacable, Mortal {
     public String toString() {
         return this.getClass().getName();
     }
+
+    public boolean hasDamageType(DamageType dt) {
+        boolean isDamageType = false;
+        for (int i = 0; i < damageTypes.length; i++) {
+            if (damageTypes[i] == dt) {
+                isDamageType = true;
+            }
+        }
+        return isDamageType;
+    }
+
 }
