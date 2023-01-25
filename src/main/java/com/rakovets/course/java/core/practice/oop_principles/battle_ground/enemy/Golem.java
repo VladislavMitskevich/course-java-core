@@ -8,10 +8,10 @@ import java.util.Arrays;
 
 public class Golem extends Enemy {
     private final static DamageType[] damageTypes = {DamageType.PHYSICAL, DamageType.MELEE};
-    private static final int GOLEM_HEALTH = 220;
+    private final static int GOLEM_HEALTH = 220;
 
-    public Golem(int health) {
-        super(health, damageTypes);
+    public Golem() {
+        super(GOLEM_HEALTH, damageTypes);
     }
 
     @Override
@@ -34,12 +34,18 @@ public class Golem extends Enemy {
     @Override
     public void takeDamage(Fighter hero) {
         super.takeDamage(hero);
-        if (this.getHealth() >= 20) {
-            attack(hero);
-        } else if (hero.getDamageAmount() - 5 <= 0){
-
+        countHit();
+        if (hero.hasDamageType(DamageType.LONG_RANGE) == true &&
+                getCount() <= 2) {
+            hero.attack(this);
+            return;
         }
-        System.out.println(this.toString() + " get HP " + this.getHealth());
+        if (this.getHealth() <= 20) {
+            int currentHp = getHealth();
+            int upHp = currentHp +5;
+            setHealth(upHp);
+            System.out.println(this.toString() + " return his HP to" + this.getHealth());
+        }
         if (isAlive()) {
             attack(hero);
         } else {

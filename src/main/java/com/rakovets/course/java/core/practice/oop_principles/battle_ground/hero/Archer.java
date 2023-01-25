@@ -36,7 +36,7 @@ public class Archer extends Hero {
     @Override
     public int getDamageAmount() {
         //TODO random Damage
-        return DiceRoll.roll8();
+        return DiceRoll.roll6();
     }
 
     @Override
